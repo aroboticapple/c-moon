@@ -1,5 +1,8 @@
-#include <iostream>
-#include <vector>
+#include <iostream>      // For input/output operations
+#include <cstring>       // For string manipulation (e.g., memset)
+#include <sys/socket.h>  // For socket functions
+#include <netinet/in.h>  // For internet address structures
+#include <unistd.h>      // For close() function
 using namespace std;
 
 void print(string mes){
@@ -8,6 +11,12 @@ void print(string mes){
 string input(string mes){
     cin >> mes;
     return mes;
+}
+
+int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
+if (serverSocket == -1) {
+    perror("Error creating socket");
+    // Handle error
 }
 
 void printMessage() {
@@ -19,6 +28,11 @@ void printMessage() {
     std::cout << "3 delete task" << std::endl;
     std::cout << "4 mark task as complete" << std::endl;
 }
+sockaddr_in serverAddress;
+serverAddress.sin_family = AF_INET;
+serverAddress.sin_port = htons(8080); // Port number, converted to network byte order
+serverAddress.sin_addr.s_addr = INADDR_ANY; // Listen on all available interfaces
+// Or specify a specific IP address: inet_addr("127.0.0.1")
 int a;
 int main() {
     printMessage();
