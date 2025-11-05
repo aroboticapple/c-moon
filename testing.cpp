@@ -13,11 +13,6 @@ string input(string mes){
     return mes;
 }
 
-int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
-if (serverSocket == -1) {
-    perror("Error creating socket");
-    // Handle error
-}
 
 void printMessage() {
     std::cout << "===================" << std::endl;
